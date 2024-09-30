@@ -13,7 +13,7 @@ mkdir $2/.trdb/config
 # Really goofy way to write absolute path
 ROOT=`pwd`
 cd $1
-echo `pwd` >> $ROOT/$2/.trdb/config/sourcepath
+echo `pwd` >> $ROOT/$2/.trdb/config/source
 cd $ROOT
 
 mkdir $2/.trdb/tags
