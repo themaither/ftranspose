@@ -57,8 +57,15 @@ function command_0selected
 function command_setup_select { NOARG=0; }
 function command_select
 {
-  for NODE in $ARG/*
+  WD=$ARG
+  for NODE in $WD/*
   do
+    if [ -d $NODE ]
+    then
+      ARG=$NODE
+      command_select
+      continue
+    fi
     fpush $NODE
   done
 }
