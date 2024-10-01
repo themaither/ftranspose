@@ -5,37 +5,62 @@
 
 function debug
 {
-  # printf \\e[35m"$@"\\e[0m\\n
-  # printf `echo $@`
-  printf "\\e[2m`echo $@`\\e[0m\\n"
+  if [ "$DEBUG" = 1 ]
+  then
+    printf "\\e[2m`echo $@`\\e[0m\\n"
+  fi
 }
 
 function trace
 {
+  if [ "$NOVERBOSE" = 1 ]
+  then
+    return
+  fi
   echo $@
+}
+
+SELECTED=""
+
+function fpush
+{
+  debug Pushing $@
+  if [ "$SELECTED" = "" ]
+  then
+    SELECTED="$@"
+    return
+  fi
+  SELECTED="$SELECTED $@"
 }
 
 NOARG=0
 
-function command_setup_0exit
-{
-  NOARG=1
-}
-
+function command_setup_0exit { NOARG=1; }
 function command_0exit
 {
-  trace Exiting;
+  trace Exiting
   exit
 }
 
-function command_setup_0echo
-{
-  NOARG=0
-}
-
+function command_setup_0echo { NOARG=0; }
 function command_0echo
 {
-  echo "$TOKEN"
+  trace "$ARG"
+}
+
+function command_setup_0selected { NOARG=1; }
+function command_0selected
+{
+  trace "$SELECTED"
+}
+
+function command_setup_select { NOARG=0; }
+function command_select
+{
+  for NODE in $ARG/*
+  do
+    fpush $NODE
+  done
 }
 
 while read TOKENS
@@ -48,7 +73,7 @@ do
 
       debug COMMAND=$COMMAND
 
-      command_setup_$COMMAND
+      command_setup_$COMMAND #TODO: add check if setup was executed
       debug Set command!
 
       if [ $NOARG -eq 1 ]
