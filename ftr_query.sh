@@ -3,6 +3,13 @@
 
 # 0 is replased with .
 
+DBPATH=`ftr_ponder.sh`
+if [ "$DBPATH" = "" ]
+then
+  echo Not inside a valid database
+  exit 1
+fi
+
 function debug
 {
   if [ "$DEBUG" = 1 ]
