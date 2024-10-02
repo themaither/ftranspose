@@ -36,10 +36,13 @@ function fpush
   debug Pushing $FILES
   if [ "$SELECTED" = "" ]
   then
-    SELECTED="$FILES"
+    # SELECTED="$FILES"
+    SELECTED=$FILES
     return
   fi
-  SELECTED="$SELECTED $FILES"
+  SELECTED=`echo $SELECTED $FILES | tr ' ' '\n' | sort | uniq | tr '\n' ' '`
+  SELECTED=`printf "$SELECTED\n"`
+  debug Selected = $SELECTED
 }
 
 NOARG=0
