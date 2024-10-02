@@ -1,5 +1,5 @@
 #!/usr/bin/sh
-# Executes given FTranspose query and returns pathes it yielded
+# Executes given FTranspose query and returns paths it yielded
 
 # 0 is replaced with .
 
