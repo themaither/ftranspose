@@ -32,13 +32,14 @@ SELECTED=""
 
 function fpush
 {
-  debug Pushing $@
+  FILES=`realpath --relative-to $SOURCEPATH $@`
+  debug Pushing $FILES
   if [ "$SELECTED" = "" ]
   then
-    SELECTED="$@"
+    SELECTED="$FILES"
     return
   fi
-  SELECTED="$SELECTED $@"
+  SELECTED="$SELECTED $FILES"
 }
 
 NOARG=0
