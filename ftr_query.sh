@@ -36,7 +36,6 @@ function fpush
   debug Pushing $FILES
   if [ "$SELECTED" = "" ]
   then
-    # SELECTED="$FILES"
     SELECTED=$FILES
     return
   fi
@@ -94,7 +93,7 @@ do
 
       debug COMMAND=$COMMAND
 
-      command_setup_$COMMAND #TODO: add check if setup was executed
+      command_setup_$COMMAND
       if [ $? -ne 0 ]
       then
         trace Unrecognized command $COMMAND
@@ -106,10 +105,10 @@ do
 
       if [ $NOARG -eq 1 ]
       then
-      command_$COMMAND
-      debug Executed with no args
-      COMMAND=""
-      ARG=""
+        command_$COMMAND
+        debug Executed with no args
+        COMMAND=""
+        ARG=""
       fi
 
       continue
