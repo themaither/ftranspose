@@ -32,7 +32,7 @@ SELECTED=""
 
 function fpush
 {
-  FILES=`realpath --relative-to $SOURCEPATH $@`
+  FILES=`realpath --relative-to "$SOURCEPATH" "$@"`
   debug Pushing $FILES
   if [ "$SELECTED" = "" ]
   then
@@ -66,12 +66,14 @@ function command_0selected
 function command_setup_select { NOARG=0; }
 function command_select
 {
-  TARGET=$ARG 
-  for NODE in $SOURCEPATH/$TARGET/*
+  TARGET=$ARG
+  for NODE in `echo $SOURCEPATH/$TARGET/*`
   do
+    debug node $NODE
     if [ -d $NODE ]
     then
-      ARG=$NODE
+      debug directory $NODE
+      ARG=`realpath --relative-to $SOURCEPATH $NODE`
       command_select
       continue
     fi
@@ -90,6 +92,13 @@ do
       debug COMMAND=$COMMAND
 
       command_setup_$COMMAND #TODO: add check if setup was executed
+      if [ $? -ne 0 ]
+      then
+        trace Unrecognized command $COMMAND
+        COMMAND=""
+        ARG=""
+        continue
+      fi
       debug Set command!
 
       if [ $NOARG -eq 1 ]
