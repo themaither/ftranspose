@@ -1,9 +1,10 @@
 #!/usr/bin/sh
 # Executes given FTranspose query and returns pathes it yielded
 
-# 0 is replased with .
+# 0 is replaced with .
 
 DBPATH=`ftr_ponder.sh`
+SOURCEPATH=`cat $DBPATH/config/source`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database
@@ -64,8 +65,8 @@ function command_0selected
 function command_setup_select { NOARG=0; }
 function command_select
 {
-  WD=$ARG
-  for NODE in $WD/*
+  TARGET=$ARG 
+  for NODE in $SOURCEPATH/$TARGET/*
   do
     if [ -d $NODE ]
     then
