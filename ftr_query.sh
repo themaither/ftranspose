@@ -83,6 +83,19 @@ function command_select
   done
 }
 
+function command_setup_ref { NOARG=0; }
+function command_ref
+{
+  NEWPATH=$ARG
+
+  for FILE in $SELECTED
+  do
+    mkdir -p $DBPATH/../$NEWPATH/$FILE
+    rm -d $DBPATH/../$NEWPATH/$FILE # Really bad but should work
+    ln -s $SOURCEPATH/$FILE $DBPATH/../$NEWPATH/$FILE
+  done
+}
+
 while read TOKENS
 do
   for TOKEN in $TOKENS
