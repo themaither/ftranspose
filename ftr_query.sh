@@ -26,6 +26,7 @@ function trace
   echo $@
 }
 
+INITIAL_SELECT=""
 SELECTED=""
 
 function fpush
@@ -41,6 +42,21 @@ function fpush
   SELECTED=`printf "$SELECTED\n"`
   debug Selected = $SELECTED
 }
+
+function fpush_init
+{
+  FILES=`realpath --relative-to "$SOURCEPATH" "$@"`
+  debug Pushing $FILES
+  if [ "$INITIAL_SELECT" = "" ]
+  then
+    INITIAL_SELECT=$FILES
+    return
+  fi
+  INITIAL_SELECT=`echo $INITIAL_SELECT $FILES | tr ' ' '\n' | sort | uniq | tr '\n' ' '`
+  INITIAL_SELECT=`printf "$INITIAL_SELECT\n"`
+  debug Selected = $INITIAL_SELECT
+}
+
 
 NOARG=0
 
@@ -77,20 +93,20 @@ function command_select
       command_select
       continue
     fi
-    fpush $NODE
+    fpush_init $NODE
   done
 }
 
 function command_setup_contains { NOARG=0; }
 function command_contains
 {
-  SELECTED=`echo $SELECTED | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`
+  SELECTED=$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`
 }
 
 function command_setup_extension { NOARG=0; }
 function command_extension
 {
-  SELECTED=`echo $SELECTED | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`
+  SELECTED=$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`
 }
 
 function command_setup_ref { NOARG=0; }
