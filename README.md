@@ -14,7 +14,7 @@ Currently nothing. But in the future probably will automaticaly sort, organize y
 ```sh
 git clone https://github.com/themaither/ftranspose.git
 cd ftranspose
-chmod +x *
+chmod +x ftr*
 # Maybe add that directory to PATH
 export PATH=$PATH:$(pwd)
 ```
