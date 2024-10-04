@@ -1,7 +1,12 @@
 #!/usr/bin/sh
 # Executes given FTranspose query and returns paths it yielded
 
-# 0 is replaced with .
+if [ ! -z ${1+x} ]
+then
+  cat $1 | $0
+  exit
+fi
+
 DBPATH=`ftr_ponder.sh`
 if [ "$DBPATH" = "" ]
 then
@@ -59,6 +64,7 @@ function fpush_init
 
 NOARG=0
 
+# 0 is replaced with .
 function command_setup_0exit { NOARG=1; }
 function command_0exit
 {
