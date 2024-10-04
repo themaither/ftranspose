@@ -2,15 +2,13 @@
 # Executes given FTranspose query and returns paths it yielded
 
 # 0 is replaced with .
-
 DBPATH=`ftr_ponder.sh`
-SOURCEPATH=`cat $DBPATH/config/source`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database
   exit 1
 fi
-
+SOURCEPATH=`cat $DBPATH/config/source`
 function debug
 {
   if [ "$DEBUG" = 1 ]
