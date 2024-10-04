@@ -83,6 +83,18 @@ function command_select
   done
 }
 
+function command_setup_contains { NOARG=0; }
+function command_contains
+{
+  SELECTED=`echo $SELECTED | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`
+}
+
+function command_setup_extension { NOARG=0; }
+function command_extension
+{
+  SELECTED=`echo $SELECTED | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`
+}
+
 function command_setup_ref { NOARG=0; }
 function command_ref
 {
