@@ -57,7 +57,6 @@ function fpush_init
   debug Selected = $INITIAL_SELECT
 }
 
-
 NOARG=0
 
 function command_setup_0exit { NOARG=1; }
@@ -126,6 +125,12 @@ function command_ref
 
 while read TOKENS
 do
+
+  if echo $TOKENS | grep \#.* > /dev/null
+  then
+    continue
+  fi
+
   for TOKEN in $TOKENS
   do
     if [ "$COMMAND" = "" ]
