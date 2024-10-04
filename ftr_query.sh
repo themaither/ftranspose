@@ -100,13 +100,15 @@ function command_select
 function command_setup_contains { NOARG=0; }
 function command_contains
 {
-  SELECTED=$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`
+  debug Selected=$SELECTED
+  debug Initial=$INITIAL_SELECT
+  SELECTED="$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`"
 }
 
 function command_setup_extension { NOARG=0; }
 function command_extension
 {
-  SELECTED=$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`
+  SELECTED="$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`"
 }
 
 function command_setup_ref { NOARG=0; }
