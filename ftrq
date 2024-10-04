@@ -7,7 +7,7 @@ then
   exit
 fi
 
-DBPATH=`ftr_ponder.sh`
+DBPATH=`ftrponder`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database

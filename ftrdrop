@@ -1,7 +1,7 @@
 #!/usr/bin/sh
 # Removes everything inside a database
 
-DBPATH=`ftr_ponder.sh`
+DBPATH=`ftrponder`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database

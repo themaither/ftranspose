@@ -1,14 +1,14 @@
 #!/usr/bin/sh
 # Executes all queries inside sync
 
-DBPATH=`ftr_ponder.sh`
+DBPATH=`ftrponder`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database
   exit 1
 fi
 
-ftr_drop.sh
+ftrdrop
 
 function traverse 
 {
@@ -19,7 +19,7 @@ function traverse
       traverse "`echo $NODE/*`"
       continue
     fi
-    ftr_query.sh $NODE
+    ftrq $NODE
   done
 }
 
