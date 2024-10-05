@@ -137,17 +137,21 @@ function command_inline
   SELECTED=$TEMP
 }
 
-#TODO: Problems here
 function command_setup_ref { NOARG=0; }
 function command_ref 
 {
   NEWPATH=$ARG
+  SELECTED_REAL_ARRAY=($SELECTED_REAL)
+  SELECTED_ARRAY=($SELECTED)
 
-  for FILE in $SELECTED_REAL
+  echo ${!SELECTED_REAL_ARRAY[@]}
+
+  for I in ${!SELECTED_REAL_ARRAY[@]}
   do
-    mkdir -p $DBPATH/../$NEWPATH/$FILE
-    rm -d $DBPATH/../$NEWPATH/$FILE # Really bad but should work
-    ln -s $SOURCEPATH/$FILE $DBPATH/../$NEWPATH/$FILE
+    # mkdir $DBPATH/../$NEWPATH
+    mkdir -p $DBPATH/../$NEWPATH/${SELECTED_ARRAY[I]}
+    rm -d $DBPATH/../$NEWPATH/${SELECTED_ARRAY[I]} # Really bad but should work
+    ln -s $SOURCEPATH/${SELECTED_REAL_ARRAY[I]} $DBPATH/../$NEWPATH/${SELECTED_ARRAY[I]}
   done
 }
 
