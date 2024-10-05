@@ -1,0 +1,17 @@
+#!/usr/bin/sh
+# Addes selected files to tag
+
+DBPATH=`ftrponder`
+if [ "$DBPATH" = "" ]
+then
+  echo Not inside a valid database
+  exit 1
+fi
+
+FILES=`echo $@ | tr " " "\n" | tail -n +2`
+TAG=`echo $@ | tr " " "\n" | head -n 1`
+TAGFILE=$DBPATH/tags/$TAG
+
+echo "$FILES" >> $TAGFILE
+NEWTAGCONTENTS=`cat "$DBPATH/tags/$TAG" | sort | uniq`
+echo "$NEWTAGCONTENTS" > $TAGFILE
