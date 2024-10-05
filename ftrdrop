@@ -7,7 +7,7 @@ then
   echo Not inside a valid database
   exit 1
 fi
-
+touch $DBPATH/../dummy-$RANDOM # WTF??????
 TARGETS=`echo $DBPATH/../*`
 
 for TARGET in $TARGETS
