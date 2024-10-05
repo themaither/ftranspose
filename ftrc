@@ -17,3 +17,4 @@ echo `pwd` >> $ROOT/$2/.trdb/config/source
 cd $ROOT
 
 mkdir $2/.trdb/tags
+mkdir $2/.trdb/sync
