@@ -110,6 +110,13 @@ function command_select
   done
 }
 
+function command_setup_all { NOARG=1; }
+function command_all
+{
+  SELECTED="$INITIAL_SELECT"
+  SELECTED_REAL="$INITIAL_SELECT"
+}
+
 function command_setup_contains { NOARG=0; }
 function command_contains
 {
