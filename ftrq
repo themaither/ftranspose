@@ -144,8 +144,6 @@ function command_ref
   SELECTED_REAL_ARRAY=($SELECTED_REAL)
   SELECTED_ARRAY=($SELECTED)
 
-  echo ${!SELECTED_REAL_ARRAY[@]}
-
   for I in ${!SELECTED_REAL_ARRAY[@]}
   do
     # mkdir $DBPATH/../$NEWPATH
