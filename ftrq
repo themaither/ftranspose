@@ -33,6 +33,7 @@ function trace
 
 INITIAL_SELECT=""
 SELECTED=""
+SELECTED_REAL=""
 
 function fpush
 {
@@ -44,6 +45,7 @@ function fpush
     return
   fi
   SELECTED=`echo $SELECTED $FILES | tr ' ' '\n' | sort | uniq | tr '\n' ' '`
+  SELECTED_REAL=`echo $SELECTED_REAL $FILES | tr ' ' '\n' | sort | uniq | tr '\n' ' '`
   SELECTED=`printf "$SELECTED\n"`
   debug Selected = $SELECTED
 }
@@ -81,6 +83,12 @@ function command_0echo
 function command_setup_0selected { NOARG=1; }
 function command_0selected
 {
+  trace "$SELECTED_REAL"
+}
+
+function command_setup_0selectedto { NOARG=1; }
+function command_0selectedto
+{
   trace "$SELECTED"
 }
 
@@ -108,20 +116,23 @@ function command_contains
   debug Selected=$SELECTED
   debug Initial=$INITIAL_SELECT
   SELECTED="$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`"
+  SELECTED_REAL="$SELECTED_REAL `echo $INITIAL_SELECT | tr " " "\n" | grep $ARG | tr "\n" " " | sed s/$/"\n"/`"
 }
 
 function command_setup_extension { NOARG=0; }
 function command_extension
 {
   SELECTED="$SELECTED `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`"
+  SELECTED_REAL="$SELECTED_REAL `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`"
 }
 
+#TODO: Problems here
 function command_setup_ref { NOARG=0; }
-function command_ref
+function command_ref 
 {
   NEWPATH=$ARG
 
-  for FILE in $SELECTED
+  for FILE in $SELECTED_REAL
   do
     mkdir -p $DBPATH/../$NEWPATH/$FILE
     rm -d $DBPATH/../$NEWPATH/$FILE # Really bad but should work
