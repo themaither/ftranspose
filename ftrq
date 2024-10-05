@@ -126,6 +126,17 @@ function command_extension
   SELECTED_REAL="$SELECTED_REAL `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`"
 }
 
+function command_setup_inline { NOARG=1; }
+function command_inline
+{
+  TEMP=""
+  for FILE in $SELECTED_REAL
+  do
+    TEMP="$TEMP `basename $FILE`"
+  done
+  SELECTED=$TEMP
+}
+
 #TODO: Problems here
 function command_setup_ref { NOARG=0; }
 function command_ref 
