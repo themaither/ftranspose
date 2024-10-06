@@ -1,0 +1,16 @@
+#!/usr/bin/sh
+
+DBPATH=`ftrponder`
+if [ "$DBPATH" = "" ]
+then
+  echo Not inside a valid database
+  exit 1
+fi
+
+if [ -z ${1+x} ]
+then
+  echo USAGE $0 [PATH]
+  exit 1
+fi
+
+readlink $1
