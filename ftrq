@@ -133,6 +133,14 @@ function command_extension
   SELECTED_REAL="$SELECTED_REAL `echo $INITIAL_SELECT | tr " " "\n" | grep "\.$ARG"$ | tr "\n" " " | sed s/$/"\n"/`"
 }
 
+function command_setup_tag { NOARG=0; }
+function command_tag
+{
+  INTAG=`cat $DBPATH/tags/$ARG`
+  SELECTED="$SELECTED `cat $DBPATH/tags/$ARG`"
+  SELECTED_REAL="$SELECTED_REAL `cat $DBPATH/tags/$ARG`"
+}
+
 function command_setup_inline { NOARG=1; }
 function command_inline
 {
