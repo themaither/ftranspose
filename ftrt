@@ -2,6 +2,7 @@
 # Addes selected files to tag
 
 DBPATH=`ftrponder`
+SOURCEPATH=`cat $DBPATH/config/source`
 if [ "$DBPATH" = "" ]
 then
   echo Not inside a valid database
@@ -16,8 +17,8 @@ REALFILES=""
 
 for FILE in $FILES
 do
-  echo $FILE
-  REALFILES="$REALFILES `ftrreverse $FILE`" 
+  REALPATH="`ftrreverse $FILE`"
+  REALFILES="$REALFILES `realpath --relative-to $SOURCEPATH $REALPATH`" 
 done
 
 REALFILES=`echo $REALFILES | tr " " "\n"`
