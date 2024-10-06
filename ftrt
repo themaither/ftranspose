@@ -12,6 +12,16 @@ FILES=`echo $@ | tr " " "\n" | tail -n +2`
 TAG=`echo $@ | tr " " "\n" | head -n 1`
 TAGFILE=$DBPATH/tags/$TAG
 
-echo "$FILES" >> $TAGFILE
+REALFILES=""
+
+for FILE in $FILES
+do
+  echo $FILE
+  REALFILES="$REALFILES `ftrreverse $FILE`" 
+done
+
+REALFILES=`echo $REALFILES | tr " " "\n"`
+
+echo "$REALFILES" >> $TAGFILE
 NEWTAGCONTENTS=`cat "$DBPATH/tags/$TAG" | sort | uniq`
 echo "$NEWTAGCONTENTS" > $TAGFILE
