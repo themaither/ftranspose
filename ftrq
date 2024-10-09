@@ -148,8 +148,8 @@ function command_tag
   SELECTED_REAL="$SELECTED_REAL `cat $DBPATH/tags/$ARG`"
 }
 
-function command_setup_inline { NOARG=1; }
-function command_inline
+function command_setup_flatten { NOARG=1; }
+function command_flatten
 {
   TEMP=""
   for FILE in $SELECTED_REAL
