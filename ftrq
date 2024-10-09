@@ -3,6 +3,13 @@
 
 if [ ! -z ${1+x} ]
 then
+
+  if [ $1 = "-c" ]
+  then
+    echo $@ | tr " " "\n" | tail -n +2 | $0
+    exit
+  fi
+
   cat $1 | $0
   exit
 fi

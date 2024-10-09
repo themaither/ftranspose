@@ -4,7 +4,7 @@
 - [ ] Global database list in `.local/share`
 - [ ] Filter command in ftrq
 - [ ] Optional backward reference to db inside source directory
-- [ ] Send ftrq commands as arguments to `ftrq`
+- [x] Send ftrq commands as arguments to `ftrq`
 
 # Future fixes
 
